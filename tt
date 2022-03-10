@@ -1,0 +1,82 @@
+int resolve5b(t_list** lst, t_list** lstb, int end)
+{
+	int		pivot;
+	int     nb;
+	int 	r;
+	int     size1;
+	int 	size2;
+	int 	size3;
+	int     end2;
+
+	end2 = toInt(lst[0]->content);
+	r = 0;
+	size1 = getSize(lstb[0], end);
+	size2 = 0;
+	size3 = 0;
+	if(size1 <= 3)
+		resolve5rev_3(lstb, end);
+	else
+	{
+		pivot = get2_best_pivot2(lstb, end, &nb);
+		int rr = max(lstb[0], end);
+		nb = n_max(lstb[0], pivot, end);
+		//while (1);
+		while (nb > 0)
+		{
+			if (toInt(lstb[0]->content) > pivot)
+			{
+				pa(lst,lstb);
+				nb--;
+				size2++;
+			}
+			else
+			{
+				r++;
+				rb(lstb);
+			}
+		}
+		if(isRevSorted(lstb[0]))
+		{
+			r = 0;
+		}
+		else
+		{
+			while (r-- > 0)
+				rrb(lstb);
+		}
+		//ft_printf("pivot  %d  nb  %d  size %d  \n", pivot, nb, size1);
+		//ft_print_lst(lstb[0]);
+		if(!isRevSortedL(lstb[0], end))
+		{
+			resolve5b(lst, lstb, end);
+		}
+		//ft_printf("end2 %d size %d  pivot %d\n", end, size1, pivot);
+		//ft_print_lst(lstb[0]);
+		//while (1);
+
+		if(okcheck(lst, lstb))
+			return (-1);
+		if(size2 > 0)
+		{
+			resolve5a(lst, lstb, end2);
+			//ft_printf("rr %d end %d\n", rr, end2);
+			while (lstb[0] && toInt(lst[0]->content) != rr)
+			{
+				//if(isSorted(lst[0]) && is_it_min(lst[0], toInt(lst[0]->content)) && is_it_max(lstb[0], toInt(lst[0]->content)))
+				//{
+				//break;
+				//ft_print_lst(lst[0]);
+				//while (1);
+				//}
+				pb(lst, lstb);
+			}
+		}
+		//ft_print_lst(lstb[0]);
+		///ft_printf("pivot %d  %d end \n", end2);
+		//ft_print_lst(lst[0]);
+		//while (1);
+	}
+	if(okcheck(lst, lstb))
+		return (-1);
+	return (size3);
+}
