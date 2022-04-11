@@ -16,8 +16,6 @@
 
 int COUNT = 0;
 
-void pb_max2(t_list** lst, t_list** lstb);
-
 int *newInt(int i)
 {
 	int	*a;
@@ -32,6 +30,39 @@ int toInt(void *i)
 	return (*(int *)(i));
 }
 
+int index_min(t_list* lst)
+{
+	int     i;
+	int     v;
+	int     min;
+
+	i = 0;
+	v = toInt(lst->content);
+	min = 0;
+	while (lst)
+	{
+		if(toInt(lst->content) < v)
+		{
+			v = toInt(lst->content);
+			min = i;
+		}
+		i++;
+		lst = lst->next;
+	}
+	return (min);
+}
+
+
+int is_lst_contains(int a, t_list* lst)
+{
+	while (lst != NULL)
+	{
+		if(toInt(lst->content) == a)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
 
 void ft_print_lst(t_list *lst)
 {
@@ -54,36 +85,15 @@ void ft_print_lstL(t_list *lst, int limit)
 	}
 }
 
-int getSize(t_list* lst, int end)
-{
-	int     i;
-
-	i = 0;
-	while (lst)
-	{
-		if(toInt(lst->content) == end)
-			break;
-		i++;
-		lst = lst->next;
-	}
-	//ft_printf("end %d \n", i);
-	return i;
-}
 
 
 void push(t_list **lst, int i)
 {
 	ft_lstadd_back(lst, ft_lstnew(newInt(i)));
 }
-void pop(t_list **lst)
-{
-	if(lst[0] != NULL)
-		lst[0] = lst[0]->next;
-}
 void sa(t_list **lsta)
 {
 	void	*temp;
-
 	COUNT++;
 	if(lsta[0] == NULL || lsta[0]->next == NULL)
 		return;
@@ -133,19 +143,6 @@ void pb(t_list **lsta,t_list **lstb)
 	lstb[0] = temp;
 	ft_printf("pb\n");
 }
-void ra_or_rra(t_list **lsta)
-{
-	t_list	*temp;
-
-	if(lsta[0] == NULL || lsta[0]->next == NULL)
-		return;
-	temp = lsta[0];
-	lsta[0] = lsta[0]->next;
-	temp->next = NULL;
-	ft_lstlast(lsta[0])->next = temp;
-	ft_printf("ra\n");
-}
-
 void ra(t_list **lsta)
 {
 	t_list	*temp;
@@ -212,48 +209,17 @@ void rrr(t_list **lsta, t_list **lstb)
 	rra(lsta);
 	rrb(lstb);
 }
-int isRevSorted (t_list *lst)
+
+int isRevSortedL (t_list *lst, int limit)
 {
-	while (lst != NULL && lst->next != NULL)
+	int 	i;
+
+	i = 1;
+	if(limit <= 1)
+		return 1;
+	while (lst != NULL && lst->next != NULL && i++ < limit)
 	{
 		if(toInt(lst->content) < toInt(lst->next->content))
-			return (0);
-		lst = lst->next;
-	}
-	return 1;
-}
-
-int isRevSortedL(t_list *lst, int end)
-{
-	while (lst != NULL && lst->next != NULL)
-	{
-		if(toInt(lst->content) == end)
-			break;
-		if(toInt(lst->content) < toInt(lst->next->content))
-			return (0);
-		lst = lst->next;
-	}
-	return 1;
-}
-
-int isSorted (t_list *lst)
-{
-	while (lst != NULL && lst->next != NULL)
-	{
-		if(toInt(lst->content) > toInt(lst->next->content))
-			return (0);
-		lst = lst->next;
-	}
-	return 1;
-}
-
-int isSortedL (t_list *lst, int end)
-{
-	while (lst != NULL && lst->next != NULL)
-	{
-		if(toInt(lst->content) == end)
-			break;
-		if(toInt(lst->content) > toInt(lst->next->content))
 			return (0);
 		lst = lst->next;
 	}
@@ -277,17 +243,6 @@ int is_alldigit(char *str)
 		i++;
 	}
 	return (1);
-}
-
-int is_lst_contains(int a, t_list* lst)
-{
-	while (lst != NULL)
-	{
-		if(toInt(lst->content) == a)
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
 }
 
 int print_error()
@@ -351,124 +306,7 @@ int	save_array(int ac, t_list** lst, char **av)
 	return ft_lstsize(lst[0]);
 }
 
-
-int is_it_min(t_list *lst, int min)
-{
-	if(lst == NULL)
-	{
-		return 0;
-	}
-	while (lst)
-	{
-		if (toInt(lst->content) < min)
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
-
-int is_it_max(t_list *lst, int max)
-{
-	if(lst == NULL)
-	{
-		return 0;
-	}
-	while (lst != NULL)
-	{
-		if (toInt(lst->content) > max)
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
-
-void resolve3B(t_list** lst, t_list** lstb);
-void resolve3(t_list** lst, t_list** lstb)
-{
-	int		pivotValue;
-	t_list	*temp;
-
-	lstb[0] = NULL;
-	pivotValue = toInt(lst[0]->content);
-	while (lst[0] != NULL)
-	{
-		if (toInt(lst[0]->content) < pivotValue)
-			pb(lst,lstb);
-		else
-		{
-			if(is_it_min(lst[0], pivotValue))
-				break;
-			ra(lst);
-			if(isSorted(lst[0]))
-				break;
-		}
-	}
-	if(lst[0] != NULL && !isSorted(lst[0]))
-	{
-		if(lstb[0] == NULL)
-			ra(lst);
-		resolve3(lst, &temp);
-	}
-	if(lstb[0] != NULL && !isRevSorted(lstb[0]))
-		resolve3B(lstb, &temp);
-	while (lstb[0] != NULL)
-		pa(lst,lstb);
-}
-
-void resolve3B(t_list** lst, t_list** lstb)
-{
-	int		pivotValue;
-	t_list	*temp;
-
-	lstb[0] = NULL;
-	pivotValue = toInt(lst[0]->content);
-	while (lst[0] != NULL)
-	{
-		if (toInt(lst[0]->content) > pivotValue)
-			pb(lst,lstb);
-		else
-		{
-			if(is_it_max(lst[0], pivotValue))
-				break;
-			if(isRevSorted(lst[0]))
-				break;
-			ra(lst);
-		}
-	}
-	if(lst[0] != NULL && !isRevSorted(lst[0]))
-	{
-		if(lstb[0] == NULL)
-			ra(lst);
-		resolve3B(lst, &temp);
-	}
-	if(lstb[0] != NULL && !isSorted(lstb[0]))
-	{
-		resolve3(lstb,&temp);
-	}
-	while (lstb[0] != NULL)
-		pa(lst,lstb);
-}
-
-void resolveTest(t_list** lst, t_list** lstb)
-{
-	t_list *lst3 = NULL;
-
-	sa(lst);
-	//ft_print_lst(lst[0]);
-	ft_lstadd_back(&lst3, ft_lstnew(newInt(22)));
-	pb(lst, lstb);
-	pb(lst, lstb);
-	pb(lst, lstb);
-	//pb(lst, &lst3);
-	//pb(lst, &lst3);
-	sa(lst);
-	pa(lst, lstb);
-	pa(lst, lstb);
-	pa(lst, lstb);
-}
-
-
-int get2(t_list* lst, int index)
+int get_at(t_list* lst, int index)
 {
 	int     i;
 
@@ -482,6 +320,80 @@ int get2(t_list* lst, int index)
 	}
 	return (0);
 }
+
+int isSorted (t_list *lst)
+{
+	while (lst != NULL && lst->next != NULL)
+	{
+		if(toInt(lst->content) > toInt(lst->next->content))
+			return (0);
+		lst = lst->next;
+	}
+	return 1;
+}
+
+int	n_min(t_list* lst, int v, int limit)
+{
+	int 	i;
+	int 	ii;
+
+	i = 0;
+	ii = 0;
+	while (ii++ < limit)
+	{
+		if(toInt(lst->content) < v)
+		{
+			i++;
+		}
+		lst = lst->next;
+	}
+	return (i);
+}
+
+int 	get_pivot(t_list** lst, int size)
+{
+	int 	pivot;
+	int 	i;
+	int 	temp;
+	int 	count;
+
+	i = 0;
+	while (i < size)
+	{
+		temp = get_at(lst[0], i);
+		count = n_min(lst[0], temp, size);
+		pivot = temp;
+		if(count == size/2)
+			break;
+		i++;
+	}
+	return pivot;
+}
+
+
+void	resolverB(t_list** lst, t_list** lstB, int size)
+{
+	int 	pivot;
+	int 	nb;
+	int		size2;
+
+	pivot = get_pivot(lstB, size);
+	nb = n_min(lstB[0], pivot, size) + 1;
+	size2 = nb;
+	while (nb > 0)
+	{
+		if (toInt(lst[0]->content) >= pivot)
+		{
+			pa(lst,lstB);
+			nb--;
+		}
+		else
+		{
+			rb(lst);
+		}
+	}
+}
+
 
 void resolve4_3(t_list** lst, t_list** lstb)
 {
@@ -508,157 +420,6 @@ void resolve4_3(t_list** lst, t_list** lstb)
 		rra(lst);
 }
 
-void resolve5_3(t_list** lst,int end)
-{
-	int 	size;
-
-	size = getSize(lst[0], end);
-	if(isSortedL(lst[0], end))
-		return;
-	if(size == 1)
-		return;
-	if(size == 2)
-	{
-		sa(lst);
-		return;
-	}
-
-	if(toInt(lst[0]->content) > toInt(lst[0]->next->content) &&
-	   toInt(lst[0]->content) >  toInt(lst[0]->next->next->content))
-	{
-		if(toInt(lst[0]->next->content) > toInt(lst[0]->next->next->content))
-		{
-			sa(lst);
-			ra(lst);
-			sa(lst);
-			rra(lst);
-			sa(lst);
-		}
-		else
-		{
-			sa(lst);
-			ra(lst);
-			sa(lst);
-			rra(lst);
-		}
-	}
-	else if(toInt(lst[0]->content) > toInt(lst[0]->next->content))
-		sa(lst);
-	else if(toInt(lst[0]->content) < toInt(lst[0]->next->next->content))
-	{
-		ra(lst);
-		sa(lst);
-		rra(lst);
-	}
-	else
-	{
-		ra(lst);
-		sa(lst);
-		rra(lst);
-		sa(lst);
-	}
-}
-
-
-int resolve5rev_3(t_list** lst, int end)
-{
-	int 	size;
-
-	size = getSize(lst[0], end);
-	if(isRevSortedL(lst[0], end))
-		return (size);
-	if(size == 2)
-	{
-		sb(lst);
-		return (2);
-	}
-	else if(size == 1)
-		return (1);
-	if(toInt(lst[0]->content) < toInt(lst[0]->next->content) &&
-	   toInt(lst[0]->content) <  toInt(lst[0]->next->next->content))
-	{
-		if(toInt(lst[0]->next->content) < toInt(lst[0]->next->next->content))
-		{
-			//ft_printf("coucou2\n");
-			sb(lst);
-			rb(lst);
-			sb(lst);
-			rrb(lst);
-			sb(lst);
-		}
-		else
-		{
-			//ft_printf("coucou3\n");
-			sb(lst);
-			rb(lst);
-			sb(lst);
-			rrb(lst);
-		}
-	}
-	else if(toInt(lst[0]->content) < toInt(lst[0]->next->content))
-	{
-		sb(lst);
-	}
-	else if(toInt(lst[0]->content) < toInt(lst[0]->next->next->content))
-	{
-		rb(lst);
-		sb(lst);
-		rrb(lst);
-		sb(lst);
-	}
-	else
-	{
-		rb(lst);
-		sb(lst);
-		rrb(lst);
-	}
-	return (3);
-}
-
-int index_min(t_list* lst)
-{
-	int     i;
-	int     v;
-	int     min;
-
-	i = 0;
-	v = toInt(lst->content);
-	min = 0;
-	while (lst)
-	{
-		if(toInt(lst->content) < v)
-		{
-			v = toInt(lst->content);
-			min = i;
-		}
-		i++;
-		lst = lst->next;
-	}
-	return (min);
-}
-
-int index_max(t_list* lst)
-{
-	int     i;
-	int     v;
-	int     max;
-
-	i = 0;
-	v = toInt(lst->content);
-	max = 0;
-	while (lst)
-	{
-		if(toInt(lst->content) > v)
-		{
-			v = toInt(lst->content);
-			max = i;
-		}
-		i++;
-		lst = lst->next;
-	}
-	return (max);
-}
-
 void pa_min(t_list** lst, t_list** lstb)
 {
 	int     index1;
@@ -673,32 +434,6 @@ void pa_min(t_list** lst, t_list** lstb)
 		while (index1++ < size)
 			rra(lst);
 	pb(lst, lstb);
-}
-
-void pb_max(t_list** lst, t_list** lstb)
-{
-	int     index1;
-	int 	size;
-
-	size = ft_lstsize(lstb[0]);
-	index1 = index_max(lstb[0]);
-	if(index1*2 <= size)
-		while (index1-- != 0)
-		{
-			if(index1 == 0)
-			{
-				//if(lstb[0]->next != NULL && lstb[0]->next->next != NULL && toInt(lstb[0]) > toInt(lstb[0]->next->next->content))
-				sb(lstb);
-				//else
-				//  rb(lstb);
-			}
-			else
-				rb(lstb);
-		}
-	else
-		while (index1++ < size)
-			rrb(lstb);
-	pa(lst, lstb);
 }
 
 void resolve4_5(t_list** lst, t_list** lstb)
@@ -722,135 +457,6 @@ void resolve4_5(t_list** lst, t_list** lstb)
 	}
 }
 
-void resolve4_all(t_list** lst, t_list** lstb)
-{
-	if(isSorted(lst[0]))
-		return;
-	pa_min(lst, lstb);
-	while (ft_lstsize(lst[0]) > 3)
-		pa_min(lst, lstb);
-	resolve4_3(lst,lstb);
-	while (lstb[0])
-		pa(lst, lstb);
-}
-
-int get2_pivot(t_list** lst, int size)
-{
-	int 	pivot;
-
-	pivot = get2(lst[0], (size/2));
-	if (is_it_min(lst[0], pivot))
-	{
-		pivot = get2(lst[0], (size/2 -1));
-	}
-	return pivot;
-}
-
-int	n_min(t_list* lst, int v, int end)
-{
-	int 	i;
-	int 	ii;
-	int     limit;
-
-	limit = getSize(lst, end);
-	i = 0;
-	ii = 0;
-	while (ii++ < limit)
-	{
-		if(toInt(lst->content) < v)
-		{
-			i++;
-		}
-		lst = lst->next;
-	}
-	return (i);
-}
-
-int	n_max(t_list* lst, int v,int end)
-{
-	int 	i;
-	int 	ii;
-	int     limit;
-
-	limit = getSize(lst, end);
-	i = 0;
-	ii = 0;
-	while (ii++ < limit)
-	{
-		if(toInt(lst->content) > v)
-		{
-			i++;
-		}
-		lst = lst->next;
-	}
-	return (i);
-}
-
-int	n_max2(t_list* lst, int v, int size)
-{
-	int 	i;
-
-	i = 0;
-	while (lst && size-- > 0)
-	{
-		if(toInt(lst->content) >= v)
-			i++;
-		lst = lst->next;
-	}
-	return (i);
-}
-
-int get2_best_pivot(t_list** lst, int end, int* nb)
-{
-	int 	pivot;
-	int 	i;
-	int 	temp;
-	int 	count;
-	int     size;
-
-	size = getSize(lst[0], end);
-	i = 0;
-	while (i < size)
-	{
-		temp = get2(lst[0], i);
-		count = n_min(lst[0], temp, end);
-		pivot = temp;
-		if(count == size/2)
-		{
-			*nb = count;
-			break;
-		}
-		i++;
-	}
-	return pivot;
-}
-
-
-int get2_best_pivot2(t_list** lst, int end, int* nb)
-{
-	int 	pivot;
-	int 	i;
-	int 	temp;
-	int 	count;
-	int     size;
-
-	i = 0;
-	size = getSize(lst[0], end);
-	while (i < size)
-	{
-		temp = get2(lst[0], i);
-		count = n_max(lst[0], temp, end);
-		pivot = temp;
-		if(count == size/2)
-		{
-			*nb = count;
-			break;
-		}
-		i++;
-	}
-	return pivot;
-}
-
 void sort_min_5(t_list** lst, t_list** lstb)
 {
 	int 	size;
@@ -864,319 +470,40 @@ void sort_min_5(t_list** lst, t_list** lstb)
 		resolve4_5(lst, lstb);
 }
 
-int resolve4b(t_list** lst, t_list** lstb)
+void	resolver_part()
 {
-	if(!isSorted(lst[0]))
-		sort_min_5(lst, lstb);
-	//ft_print_lst(lstb[0]);
-	while (lstb[0])
-		pb_max(lst, lstb);
-	return 0;
+
 }
 
-
-int resolve4(t_list** lst, t_list** lstb)
+void	resolver(t_list** lst, t_list** lstB, int size)
 {
-	int		pivot;
-	int 	size;
-	int 	i;
-	int     nb;
-	int     temp;
+	int 	pivot;
+	int 	nb;
+	int		size2;
 
-	size = ft_lstsize(lst[0]);
-	if(isSorted(lst[0]) || size <= 5)
-		return (resolve4b(lst, lstb));
-	pivot = get2_best_pivot(lst, size, &nb);
-	temp = nb;
-	i = 0;
-	while (i++ < size)
-	{
-		if (toInt(lst[0]->content) < pivot)
-		{
-			//if(lst[0]->next != NULL && toInt(lst[0]->next->content) < pivot && toInt(lst[0]->next->content) < toInt(lst[0]->content))
-			//sa(lst);
-			temp = n_min(lst[0], toInt(lst[0]->content), ft_lstsize(lst[0]));
-			//if(nb - temp > nb/2){ra(lst);}else
-			pb(lst,lstb);
-			//ft_printf("le nbr %d  nb %d  temp %d  %d\n", toInt(lst[0]->content), nb, temp , pivot);
-			nb--;
-		}
-		else
-		{
-			//if(is_it_max(lst[0], pivot))
-			//{pb(lst,lstb);break;}
-			if(isSorted(lst[0]))
-				break;
-			if (toInt(lst[0]->content) == pivot && i * 2 > size)
-			{
-				nb--;
-				pb(lst,lstb);
-			}
-			else
-				ra(lst);
-			if(isSorted(lst[0]))
-				break;
-		}
-	}
-	resolve4(lst, lstb);
-	return (0);
-}
-
-int	okcheck(t_list** lst, t_list** lsb)
-{
-	if(lsb[0] == NULL || lst[0] == NULL)
-		return (-1);
-	if(toInt(lsb[0]->content) < toInt(lst[0]->content) && isSorted(lst[0]) && isRevSorted(lsb[0]))
-	{
-		while (lsb[0])
-		{
-			pa(lst, lsb);
-		}
-		return (1);
-	}
-	return (0);
-}
-
-int resolve5a(t_list** lst, t_list** lstb, int size);
-
-int max(t_list *lst, int limit);
-
-
-int resolve5b(t_list** lst, t_list** lstb, int end)
-{
-	int		pivot;
-	int     nb;
-	int 	r;
-	int     size1;
-	int 	size2;
-	int 	size3;
-	int     end2;
-
-	end2 = toInt(lst[0]->content);
-	r = 0;
-	size1 = getSize(lstb[0], end);
-	size2 = 0;
-	size3 = 0;
-	if(size1 <= 3)
-		resolve5rev_3(lstb, end);
+	if(size <= 5)
+		sort_min_5(lst, lstB);
 	else
 	{
-		pivot = get2_best_pivot2(lstb, end, &nb);
-		int rr = max(lstb[0], end);
-		nb = n_max(lstb[0], pivot, end);
-		while (nb > 0)
-		{
-			if (toInt(lstb[0]->content) > pivot)
-			{
-				pa(lst,lstb);
-				nb--;
-				size2++;
-			}
-			else
-			{
-				r++;
-				rb(lstb);
-			}
-		}
-		if(!isRevSorted(lstb[0]))
-			while (r-- > 0)
-				rrb(lstb);
-		if(!isRevSortedL(lstb[0], end))
-			resolve5b(lst, lstb, end);
-		if(okcheck(lst, lstb))
-			return (-1);
-		if(size2 > 0)
-		{
-			resolve5a(lst, lstb, end2);
-			while (lst[0] != NULL && lstb[0] != NULL && toInt(lstb[0]->content) < rr)
-			{
-				pb(lst, lstb);
-			}
-		}
-	}
-	if(okcheck(lst, lstb))
-		return (-1);
-	return (size3);
-}
-
-int max(t_list *lst, int end)
-{
-	int		i;
-	int 	m;
-	int     limit;
-
-	limit = getSize(lst, end);
-	m = toInt(lst->content);
-	i = 1;
-	while (i++ < limit)
-	{
-		if(toInt(lst->next->content) > m)
-			m = toInt(lst->next->content);
-		lst = lst->next;
-	}
-	return (m);
-}
-
-int min(t_list *lst, int end)
-{
-	int		i;
-	int 	m;
-	int     limit;
-
-	limit = getSize(lst, end);
-	m = toInt(lst->content);
-	i = 1;
-	while (i++ < limit)
-	{
-		if(toInt(lst->next->content) < m)
-			m = toInt(lst->next->content);
-		lst = lst->next;
-	}
-	return (m);
-}
-
-int resolve5a(t_list** lst, t_list** lstb, int end)
-{
-	int		pivot;
-	int     nb;
-	int 	r;
-	int 	size2;
-	int 	size3;
-	int     size1;
-	int     end2;
-
-	end2 = toInt(lstb[0]->content);
-	size1 = getSize(lst[0], end);
-	//ft_printf("end  %d end2 %d\n", end, end2);
-	r = 0;
-	size2 = 0;
-	if(size1 <= 3)
-	{
-		resolve5_3(lst, end);
-	}
-	else
-	{
-		pivot = get2_best_pivot(lst, end, &nb);
-		nb = n_min(lst[0], pivot, end);
-		while (nb > 0)
-		{
-			if (toInt(lst[0]->content) < pivot)
-			{
-				pb(lst,lstb);
-				nb--;
-				size2++;
-			}
-			else
-			{
-				r++;
-				ra(lst);
-			}
-		}
-		while (r-- > 0)
-			rra(lst);
-		if(!isSortedL(lst[0], end))
-			resolve5a(lst, lstb, end);
-		int rr = min( lstb[0], end2);
-		if(size2 != 0 && lstb[0])
-		{
-			//ft_print_lst(lstb[0]);
-			//ft_printf("sizee  %d  r %d size2 %d\n", COUNT, r,size2);
-			resolve5b(lst, lstb, end2);
-			//while (1);
-		}
-		if(okcheck(lst, lstb))
-			return (-1);
-		while (lst[0] != NULL && toInt(lst[0]->content) < rr)
-		{
-			pa(lst, lstb);
-		}
-		if(okcheck(lst, lstb))
-			return (-1);
-	}
-	return (size3);
-}
-
-
-
-void pb_max2(t_list** lst, t_list** lstb)
-{
-	int     index1;
-	int 	size;
-
-	size = ft_lstsize(lstb[0]);
-	index1 = index_max(lstb[0]);
-	if(index1*2 <= size)
-		while (index1-- != 0)
-		{
-			if(index1 == 0)
-				sb(lstb);
-			else
-				rb(lstb);
-		}
-	else
-		while (index1++ < size)
-			rrb(lstb);
-	pa(lst, lstb);
-}
-
-
-int resolve5(t_list** lst, t_list** lstb, int size)
-{
-	int		pivot;
-	int     nb;
-	int 	size2;
-	int     size1;
-	int     end2;
-
-	size2 = 0;
-	if(lstb[0] == NULL)
-		end2 = 2147483647;
-	else
-		end2 = toInt(lstb[0]->content);
-	size1 = getSize(lst[0], size);
-	if(size1 <= 5)
-		sort_min_5(lst, lstb);
-	else
-	{
-		pivot = get2_best_pivot(lst, size, &nb);
+		pivot = get_pivot(lst, size);
 		nb = n_min(lst[0], pivot, size);
+		size2 = nb;
+		size -= nb;
 		while (nb > 0)
 		{
-			if (toInt(lst[0]->content) < pivot)
+			if (toInt(lst[0]->content) <= pivot)
 			{
-				pb(lst,lstb);
+				pb(lst,lstB);
 				nb--;
-				size2++;
 			}
 			else
-			{
-				if(isSorted(lst[0]))
-					break;
 				ra(lst);
-				if(isSorted(lst[0]))
-					break;
-			}
 		}
 		if(!isSorted(lst[0]))
-			resolve5(lst, lstb, size);
-		//ft_printf("size %d\n", COUNT);
-		//while (lstb[0])
-		//	pb_max2(lst, lstb);
-		//ft_printf("size %d\n", COUNT);
-		//ft_print_lst(lst[0]);
-		//while (1);
-		if(size2 != 0)
-			resolve5b(lst, lstb, end2);
-		while (size2-- > 0)
-		{
-			pa(lst, lstb);
-		}
+			resolver(lst, lstB, size);
+
 	}
-	return (0);
 }
-
-
-
 
 int	main(int ac, char **av)
 {
@@ -1185,18 +512,7 @@ int	main(int ac, char **av)
 	int		len;
 	len = save_array(ac, &lst,av);
 
-
-
-	//ft_printf("%d \n",len);
-	//if(len > 0)
-	//resolve3(&lst, &lstb);
-	resolve5(&lst,&lstb, 2147483647);
-	//resolve5b(&lstb,&lst, len);
-	//ft_print_lst(lst);
-	//resolve5rev_3(&lst, len);
-	//if(isRevSortedL(lst, len))
-	//ft_print_lst(lst);
-	//ft_printf("%d\n", len);
-	//ft_printf("%d", get2_best_pivot(&lst, len));
+	resolver(&lst, &lstb, len);
+	ft_print_lst(lst);
 	return (0);
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/mm/intra-uuid-f2a80a3d-ec04-478e-8525-c56d8383dbed-3900142" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pp/Push_swap" vcs="Git" />
