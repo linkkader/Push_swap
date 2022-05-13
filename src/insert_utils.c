@@ -21,7 +21,7 @@ void	sa(t_list **lsta)
 	temp = lsta[0]->content;
 	lsta[0]->content = lsta[0]->next->content;
 	lsta[0]->next->content = temp;
-	ft_printf("sa\n");
+	ft_putstr_fd("sa\n", 1);
 }
 
 void	sb(t_list **lstb)
@@ -33,14 +33,14 @@ void	sb(t_list **lstb)
 	temp = lstb[0]->content;
 	lstb[0]->content = lstb[0]->next->content;
 	lstb[0]->next->content = temp;
-	ft_printf("sb\n");
+	ft_putstr_fd("sb\n", 1);
 }
 
 void	ss(t_list **lsta, t_list **lstb)
 {
 	sa(lsta);
 	sb(lstb);
-	ft_printf("ss\n");
+	ft_putstr_fd("ss\n", 1);
 }
 
 void	pa(t_list **lsta, t_list **lstb)
@@ -53,7 +53,7 @@ void	pa(t_list **lsta, t_list **lstb)
 	lstb[0] = lstb[0]->next;
 	temp->next = lsta[0];
 	lsta[0] = temp;
-	ft_printf("pa\n");
+	ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_list **lsta, t_list **lstb)
@@ -66,5 +66,5 @@ void	pb(t_list **lsta, t_list **lstb)
 	lsta[0] = lsta[0]->next;
 	temp->next = lstb[0];
 	lstb[0] = temp;
-	ft_printf("pb\n");
+	ft_putstr_fd("pb\n", 1);
 }

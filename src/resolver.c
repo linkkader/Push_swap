@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ft_printf.h"
 
 int	get2(t_list *lst, int index)
 {

@@ -10,42 +10,62 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = push_swap
 
-SRCS = ft_isalnum.c		ft_itoa.c		ft_memset.c		ft_split.c		ft_strlcat.c	ft_strnstr.c		ft_toupper.c\
-	   ft_isalpha.c		ft_memchr.c		ft_putchar_fd.c	ft_strchr.c		ft_strlcpy.c	ft_strrchr.c\
-	   ft_atoi.c		ft_isascii.c	ft_memcmp.c		ft_putendl_fd.c	ft_strdup.c		ft_strlen.c		ft_strtrim.c\
-	   ft_bzero.c		ft_isdigit.c	ft_memcpy.c		ft_putnbr_fd.c	ft_striteri.c	ft_strmapi.c	ft_substr.c	\
-	   ft_calloc.c		ft_isprint.c	ft_memmove.c	ft_putstr_fd.c	ft_strjoin.c	ft_strncmp.c	ft_tolower.c
+FILE = insert2_utils.c insert_utils.c  resolve5.c      resolver.c      resolverb.c     utils.c         utils3.c\
+       insert3_utils.c main2.c         resolve5_rev.c  resolvera.c     save.c          utils2.c
 
-BONUS = ft_lstadd_back_bonus.c	ft_lstnew_bonus.c ft_lstclear_bonus.c	ft_lstiter_bonus.c	ft_lstnew_bonus.c	ft_lstlast_bonus.c\
-		ft_lstadd_front_bonus.c	ft_lstdelone_bonus.c	ft_lstmap_bonus.c	ft_lstsize_bonus.c
+FILE_BONUS = exec.c  bonus.c     utils.c    run.c
 
-OBJS = $(SRCS:.c=.o)
+TMP = Test
 
-OBJS_B = $(BONUS:.c=.o)
+LIBFT_DIRECTORY = libft/
+
+LIBFT = $(LIBFT_DIRECTORY)libft.a
 
 FLAGS = -Wall -Wextra -Werror
 
-HEADERS = .
+HEADERS = includes
 
-.c.o:
-	gcc  ${FLAGS} -I $(HEADERS) -c $< -o ${<:.c=.o}
+SOURCES_DIRECTORY = src/
 
-all: ${NAME}
+OBJECTS_DIRECTORY = obj/
 
-bonus: $(OBJS_B)
-	ar rc ${NAME} ${OBJS_B}
+SRCS = $(addprefix $(SOURCES_DIRECTORY), $(FILE))
 
-${NAME}: ${OBJS}
-	ar rc ${NAME} ${OBJS}
+OBJS = $(addprefix $(OBJECTS_DIRECTORY), $(FILE:.c=.o))
+
+OBJS_BONUS = $(addprefix $(OBJECTS_DIRECTORY), $(FILE_BONUS:.c=.o))
+
+$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c
+	gcc  $(FLAGS) -I $(HEADERS) -c $< -o $@
+
+all:$(NAME)
+
+bonus: $(NAME) $(OBJS_BONUS)
+	gcc $(FLAGS) -I $(HEADERS) $(LIBFT) $(OBJS_BONUS) -o ${NAME}
+
+$(LIBFT):
+	@echo "make libft"
+	@make -sC $(LIBFT_DIRECTORY)
+	@make bonus -sC $(LIBFT_DIRECTORY)
+
+$(OBJECTS_DIRECTORY):
+	mkdir -p $@
+
+$(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJS)
+	gcc $(FLAGS) -I $(HEADERS) $(LIBFT) $(OBJS) -o ${NAME}
 
 clean:
-	rm -f ${OBJS} ${OBJS_B}
+	@make fclean -sC $(LIBFT_DIRECTORY)
+	rm -Rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f $(NAME)
 
 re: fclean all
+
+exe: re
+	 ./pipex in.txt "cat -e" "cat -e" ii.txt
 
 .PHONY: all clean fclean re

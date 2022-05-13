@@ -65,7 +65,7 @@ void	resolve5_3(t_list **lst, int size)
 	}
 }
 
-void	resolve4_3(t_list **lst, t_list **lstb)
+void	resolve4_3(t_list **lst)
 {
 	if (is_sorted(lst[0]))
 		return ;
@@ -104,7 +104,7 @@ void	resolve4_5(t_list **lst, t_list **lstb)
 		i++;
 		pa_min(lst, lstb);
 	}
-	resolve4_3(lst, lstb);
+	resolve4_3(lst);
 	while (lstb[0] && i > 0)
 	{
 		i--;
@@ -120,7 +120,7 @@ void	sort_min_5(t_list **lst, t_list **lstb)
 	if (size == 2)
 		ra(lst);
 	if (size == 3)
-		resolve4_3(lst, lstb);
+		resolve4_3(lst);
 	else
 		resolve4_5(lst, lstb);
 }
