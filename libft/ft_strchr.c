@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/02 12:23:00 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/09 15:50:40 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strchr(const char *str, int c)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	int		i;
+	char	character;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
-	return (0);
+	character = (char)c;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == character)
+			return ((char *)(str + i));
+		i++;
+	}
+	if (character == '\0')
+		return ((char *)(str + i));
+	return (NULL);
 }

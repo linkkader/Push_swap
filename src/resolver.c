@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	get2(t_list *lst, int index)
 {
@@ -69,11 +69,7 @@ void	resolve5_part(t_list **lst, t_list **lstb, int size, int *size2)
 		}
 		else
 		{
-			if (is_sorted(lst[0]))
-				break ;
 			ra(lst);
-			if (is_sorted(lst[0]))
-				break ;
 		}
 	}
 }
@@ -89,6 +85,11 @@ int	resolve5(t_list **lst, t_list **lstb, int size)
 		resolve5_part(lst, lstb, size, &size2);
 		if (!is_sorted(lst[0]))
 			resolve5(lst, lstb, ft_lstsize(lst[0]));
+		if (ft_lstsize(lst[0]) + ft_lstsize(lstb[0]) <= 100)
+		{
+			while (lstb[0])
+				pb_max(lst, lstb);
+		}
 		if (size2 != 0)
 			size2 = resolve5b(lst, lstb, size2);
 		while (size2-- > 0)

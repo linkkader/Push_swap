@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	resolve5a_part(t_list **lst, t_list **lstb, int *size, int *size2)
 {

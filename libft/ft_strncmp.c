@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/02 12:49:34 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/09 19:10:55 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	size_t	i;
+	int		a;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
+	i = 0;
+	while (i < n && (s1[i] != '\0' || s2[i] != '\0'))
+	{
+		a = (unsigned char)s1[i] - (unsigned char)s2[i];
+		if (a != 0)
+		{
+			return (a);
+		}
+		i++;
+	}
 	return (0);
 }

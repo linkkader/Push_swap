@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/11 14:38:21 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/14 11:29:37 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+t_list	*ft_lstnew(void *content)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	t_list	*t;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
-	return (0);
+	t = malloc (1 * (sizeof(t_list *)));
+	if (t == NULL)
+		return (NULL);
+	t->content = content;
+	t->next = NULL;
+	return (t);
 }

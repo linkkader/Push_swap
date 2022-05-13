@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/02 16:08:45 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/13 17:48:08 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	char	*str;
+	int		i;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
-	return (0);
+	if (s == NULL)
+		return (NULL);
+	str = malloc ((ft_strlen(s) + 1) * sizeof (char));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (f != NULL)
+			str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

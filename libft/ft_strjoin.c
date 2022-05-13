@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/02 14:37:12 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/13 17:24:31 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	char	*str;
+	int		i;
+	int		a;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
-	return (0);
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	str = malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	a = 0;
+	while (s1[i] != '\0')
+		str[a++] = s1[i++];
+	i = 0;
+	while (s2[i] != '\0')
+		str[a++] = s2[i++];
+	str[a] = '\0';
+	return (str);
 }

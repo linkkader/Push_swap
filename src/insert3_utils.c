@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	push(t_list **lst, int i)
 {
@@ -19,8 +19,11 @@ void	push(t_list **lst, int i)
 
 void	pop(t_list **lst)
 {
+	ft_putstr_fd("start", 1);
 	if (lst[0] != NULL)
+	{
 		lst[0] = lst[0]->next;
+	}
 }
 
 void	rr(t_list **lsta, t_list **lstb)
@@ -40,6 +43,8 @@ int	*new_int(int i)
 	int	*a;
 
 	a = malloc(sizeof(int));
+	if (a == NULL)
+		return (NULL);
 	*a = i;
 	return (a);
 }

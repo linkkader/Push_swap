@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/09 11:20:49 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/23 19:07:11 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	t_list	*temp;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
-	return (0);
+	if (alst != NULL)
+	{
+		temp = alst[0];
+		if (temp == NULL)
+		{
+			alst[0] = new;
+			return ;
+		}
+		while (alst[0] != NULL)
+		{
+			if (alst[0]->next == NULL)
+				break ;
+			alst[0] = alst[0]->next;
+		}
+		alst[0]->next = new;
+		alst[0] = temp;
+	}
 }

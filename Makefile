@@ -25,6 +25,8 @@ LIBFT = $(LIBFT_DIRECTORY)libft.a
 
 FLAGS = -Wall -Wextra -Werror
 
+FLAGS =
+
 HEADERS = includes
 
 SOURCES_DIRECTORY = src/
@@ -65,7 +67,7 @@ fclean: clean
 
 re: fclean all
 
-exe: re
-	 ./pipex in.txt "cat -e" "cat -e" ii.txt
+exe: all
+	./push_swap 154 376 -445 -748 -313 435 -40 595 -850 62
 
 .PHONY: all clean fclean re

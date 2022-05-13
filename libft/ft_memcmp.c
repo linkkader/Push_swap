@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 21:35:15 by acouliba          #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:29 by acouliba         ###   ########.fr       */
+/*   Created: 2021/11/02 13:51:04 by acouliba          #+#    #+#             */
+/*   Updated: 2021/11/08 14:53:07 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_list	*lst;
-	t_list	*lstb;
-	int		len;
+	size_t			i;
+	int				a;
+	unsigned char	*s11;
+	unsigned char	*s22;
 
-	lst = NULL;
-	lstb = NULL;
-	len = save_array(ac, &lst, av);
-	resolve5(&lst, &lstb, len);
-	ft_lstclear(&lst, free);
-	system("leaks push_swap");
+	i = 0;
+	s11 = (unsigned char *)s1;
+	s22 = (unsigned char *)s2;
+	while (i < n)
+	{
+		a = s11[i] - s22[i];
+		if (a != 0)
+			return (a);
+		i++;
+	}
 	return (0);
 }
