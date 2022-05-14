@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-static void	part(char *cmd,t_list **lst, t_list **lstb)
+static void	part(char *cmd, t_list **lst, t_list **lstb)
 {
 	if (ft_strncmp(cmd, "ra", 2) == 0)
 		ra_bonus(lst);

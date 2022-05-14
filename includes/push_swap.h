@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 # include "libft.h"
 
@@ -29,7 +29,6 @@ void	push(t_list **lst, int i);
 void	pop(t_list **lst);
 void	rr(t_list **lsta, t_list **lstb);
 void	rrr(t_list **lsta, t_list **lstb);
-
 
 void	sa_bonus(t_list **lsta);
 void	sb_bonus(t_list **lstb);

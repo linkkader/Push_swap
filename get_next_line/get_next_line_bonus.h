@@ -1,6 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/14 18:54:39 by acouliba          #+#    #+#             */
+/*   Updated: 2022/05/14 18:54:41 by acouliba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <marvin@42.fr>                    +#+  +:+       +#+        */
@@ -10,13 +22,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <limits.h>
-# define GET_NEXT_LINE_H
+# define GET_NEXT_LINE_BONUS_H
 
 int		ft_strlen_gnl(const char *s);
 char	*ft_subst_gnlr(char const *s, int start, int len, char **temp);

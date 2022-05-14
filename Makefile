@@ -74,7 +74,7 @@ clean:
 	rm -Rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) checker
 
 re: fclean all
 
