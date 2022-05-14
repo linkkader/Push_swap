@@ -23,6 +23,7 @@ int	main(int ac, char **av)
 	len = save_array(ac, &lst, av);
 	resolve5(&lst, &lstb, len);
 	ft_lstclear(&lst, free);
-	system("leaks push_swap");
+	exit(0);
+	//system("leaks push_swap");
 	return (0);
 }
