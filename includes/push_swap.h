@@ -29,6 +29,19 @@ void	push(t_list **lst, int i);
 void	pop(t_list **lst);
 void	rr(t_list **lsta, t_list **lstb);
 void	rrr(t_list **lsta, t_list **lstb);
+
+
+void	sa_bonus(t_list **lsta);
+void	sb_bonus(t_list **lstb);
+void	ss_bonus(t_list **lsta, t_list **lstb);
+void	pa_bonus(t_list **lsta, t_list **lstb);
+void	pb_bonus(t_list **lsta, t_list **lstb);
+void	ra_bonus(t_list **lsta);
+void	rb_bonus(t_list **lstb);
+void	rrb_bonus(t_list **lstb);
+void	rra_bonus(t_list **lsta);
+void	rr_bonus(t_list **lsta, t_list **lstb);
+void	rrr_bonus(t_list **lsta, t_list **lstb);
 //
 int		*new_int(int i);
 void	sort_min_5(t_list **lst, t_list **lstb);

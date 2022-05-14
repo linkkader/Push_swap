@@ -11,5 +11,6 @@
     <mapping directory="$PROJECT_DIR$/push_swap_tester" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ss/intra-uuid-f2a80a3d-ec04-478e-8525-c56d8383dbed-3900142" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/tester" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/tester/get_next_line" vcs="Git" />
   </component>
 </project>

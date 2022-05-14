@@ -45,7 +45,7 @@ int	is_lst_contains(int a, t_list *lst)
 int	print_error(void)
 {
 	ft_putstr_fd("Error\n", 1);
-	return (0);
+	return (-1);
 }
 
 int	save_array(int ac, t_list **lst, char **av)

@@ -15,13 +15,19 @@ NAME = push_swap
 FILE = insert2_utils.c insert_utils.c  resolve5.c      resolver.c      resolverb.c     utils.c         utils3.c\
        insert3_utils.c main2.c         resolve5_rev.c  resolvera.c     save.c          utils2.c
 
-FILE_BONUS = exec.c  bonus.c     utils.c    run.c
+FILE_BONUS = bonus.c	 insert_utils_bonus.c insert_utils_bonus_2.c  insert_utils_bonus_3.c \
+			insert2_utils.c insert_utils.c  resolve5.c      resolver.c      resolverb.c     utils.c         utils3.c\
+                   insert3_utils.c         resolve5_rev.c  resolvera.c     save.c          utils2.c
 
-TMP = Test
+
+GNL_DIRECTORY = get_next_line/
+
+GNL = $(GNL_DIRECTORY)gnl.a
 
 LIBFT_DIRECTORY = libft/
 
 LIBFT = $(LIBFT_DIRECTORY)libft.a
+
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -44,13 +50,17 @@ $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c
 
 all:$(NAME)
 
-bonus: $(NAME) $(OBJS_BONUS)
-	gcc $(FLAGS) -I $(HEADERS) $(LIBFT) $(OBJS_BONUS) -o ${NAME}
+bonus: $(GNL) $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJS_BONUS)
+	gcc $(FLAGS) -I $(HEADERS) $(LIBFT) $(OBJS_BONUS) $(GNL) -o checker
 
 $(LIBFT):
 	@echo "make libft"
 	@make -sC $(LIBFT_DIRECTORY)
 	@make bonus -sC $(LIBFT_DIRECTORY)
+
+$(GNL):
+	@echo "make gnl"
+	@make -sC $(GNL_DIRECTORY)
 
 $(OBJECTS_DIRECTORY):
 	mkdir -p $@
@@ -60,6 +70,7 @@ $(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJS)
 
 clean:
 	@make fclean -sC $(LIBFT_DIRECTORY)
+	@make fclean -sC $(GNL_DIRECTORY)
 	rm -Rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
