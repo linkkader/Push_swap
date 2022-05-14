@@ -52,8 +52,11 @@ int	okcheck(t_list **lst, t_list **lsb)
 		&& is_sorted(lst[0]) && is_rev_sorted(lsb[0]))
 	{
 		while (lsb[0])
+		{
 			pa(lst, lsb);
-		return (1);
+		}
+		ft_lstclear(lst, free);
+		exit(0);
 	}
 	return (0);
 }

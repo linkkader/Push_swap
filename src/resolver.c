@@ -88,12 +88,19 @@ int	resolve5(t_list **lst, t_list **lstb, int size)
 		if (ft_lstsize(lst[0]) + ft_lstsize(lstb[0]) <= 100)
 		{
 			while (lstb[0])
+			{
 				pb_max(lst, lstb);
+			}
+			ft_lstclear(lst, free);
+			exit(0);
 		}
-		if (size2 != 0)
+		if (size2 != 0) {
 			size2 = resolve5b(lst, lstb, size2);
+		}
 		while (size2-- > 0)
+		{
 			pa(lst, lstb);
+		}
 	}
 	return (0);
 }

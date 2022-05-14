@@ -64,7 +64,9 @@ int	_part_resolvera(t_list **lst, t_list **lstb, int r)
 	while (to_int(lst[0]->content) != r)
 		pa(lst, lstb);
 	if (okcheck(lst, lstb))
+	{
 		return (-1);
+	}
 	return (0);
 }
 

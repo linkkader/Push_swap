@@ -24,6 +24,5 @@ int	main(int ac, char **av)
 	resolve5(&lst, &lstb, len);
 	ft_lstclear(&lst, free);
 	exit(0);
-	//system("leaks push_swap");
 	return (0);
 }

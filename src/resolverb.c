@@ -80,7 +80,9 @@ int	resolve5b(t_list **lst, t_list **lstb, int size)
 		while (r-- > 0)
 			rrb(lstb);
 		if (!is_rev_sortedl(lstb[0], size))
+		{
 			resolve5b(lst, lstb, size);
+		}
 		if (size2 > 0)
 		{
 			resolve5a(lst, lstb, size2);
